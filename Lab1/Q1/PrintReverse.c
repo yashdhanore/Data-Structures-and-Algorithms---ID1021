@@ -12,12 +12,13 @@
 void PrintRevRecursive(){  /*calling PrintRevRecursive until end of file is reached, this stacks up all the requests
                             of printing. When EOF is reached the function doesnt call itself and ends the process.
                             After that printing is done --- n(n+1) time complexity*/
-    int current;           /*char represents 256 values but getchar returns 257 values(includes EOF) so to avoid 
-                             information lost we use int*/
+    char current;           /*char represents 256 values but getchar returns 257 values(includes EOF) so to avoid 
+                             //information lost we use int*/
     if((current = getchar()) != EOF){
         PrintRevRecursive();
-        putchar(current);
     }
+    putchar(current);
+    return;
 }
 
 void PrintRevIterative(){
@@ -49,14 +50,10 @@ void PrintRevIterative_cmd(int size,char *current[]){
         printf("%c",rev[j]);
     }
 }
-int main(int argc, char *argv[]){
-    if(argc > 1){
-        PrintRevIterative_cmd(argc,argv);
-    }
-    else{
+
+int main(){
         PrintRevRecursive();
         //PrintRevIterative();
-    }
    return 0;
 }
 
