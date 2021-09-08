@@ -4,6 +4,10 @@
     Hint: use getchar(), putchar() (or getc(), putc()). 
     For the iterative version you may assume a fixed max length of the input.
     Author: Yash Dhanore
+    Started on - 5th sept 2021
+    Updates - 8th Sept (Updated Input text)
+            - 
+            -
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +27,7 @@ void PrintRevRecursive(){  /*calling PrintRevRecursive until end of file is reac
 
 void PrintRevIterative(){
     int current = 0;
-    char reverse[1001];
+    char reverse[1001]; //size can be changed 
     int i = 0;
     while((current = getchar()) != EOF && i < 1001){
         reverse[i] = current;
@@ -32,28 +36,27 @@ void PrintRevIterative(){
     for(int j = i-1; j >= 0; j-- ){
         putchar(reverse[j]);
     }
-    putchar('\n');
 }
-void PrintRevIterative_cmd(int size,char *current[]){
-    char rev[1001];
-    int len = 0;
-    for(int i = 1; i < size; i++ ){
-        char *word = current[i];
-        for(int j = 0; j < strlen(word) ; j++){
-            rev[len] = *(word+j);
-            ++len;
-        }
-        rev[len] = ' ';
-        ++len;
-    }
-    for(int j = len-2; j >= 0; j-- ){
-        printf("%c",rev[j]);
-    }
-}
+// void PrintRevIterative_cmd(int size,char *current[]){
+//     char rev[1001];
+//     int len = 0;
+//     for(int i = 1; i < size; i++ ){
+//         char *word = current[i];
+//         for(int j = 0; j < strlen(word) ; j++){
+//             rev[len] = *(word+j);
+//             ++len;
+//         }
+//         rev[len] = ' ';
+//         ++len;
+//     }
+//     for(int j = len-2; j >= 0; j-- ){
+//         printf("%c",rev[j]);
+//     }
+// }
 
 int main(){
-        PrintRevRecursive();
-        //PrintRevIterative();
+        //PrintRevRecursive();
+        PrintRevIterative();
    return 0;
 }
 
