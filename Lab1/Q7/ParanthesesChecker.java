@@ -1,10 +1,17 @@
 
 /*
-Task - Implement a program which takes as input a series of parentheses , that is a series of the characters:
+ Q. Implement a program which takes as input a series of parentheses , that is a series of the characters:
  '(', ')', '[', ']', '{', '}'. The program should check if the parentheses are "balanced" or not
 
  Author: Yash Dhanore
-*/
+ */
+// - Used LinkedStackOfStrings from lecture slides
+// - Used pop and push mechanism for solution.
+
+// Author: Yash Dhanore
+// Created - 7th Sept, 2021
+// Upadtes - 
+
 import java.util.Scanner;
 
 //could have also done by pushing all open parantheses in the stack and if you come across a closing one, check 
