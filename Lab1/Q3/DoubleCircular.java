@@ -1,3 +1,13 @@
+// Implement a generic iterable FIFO-queue based on a double linked circular list.
+// You should print the content of the list after each insertion/deletion of an element.
+
+// Used:
+// - Node and FIFO approach
+
+// Author: Yash Dhanore
+// Created: 9th Sept,2021
+// Updates: 10th Sept,2021 (Added Dequeue and implemented tests)
+
 public class DoubleCircular<T> {
 
     private Node<T> head;
