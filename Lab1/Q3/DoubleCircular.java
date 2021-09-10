@@ -1,13 +1,13 @@
-public class DoubleCircular {
+public class DoubleCircular<T> {
 
-    private Node head;
-    private Node tail;
+    private Node<T> head;
+    private Node<T> tail;
     int size;
 
-    private class Node {
-        int value;
-        Node previous;
-        Node next;
+    private class Node<T> {
+        T value;
+        Node<T> previous;
+        Node<T> next;
     }
 
     DoubleCircular() {
@@ -15,8 +15,8 @@ public class DoubleCircular {
         size = 0;
     }
 
-    void enqueue(int x) {
-        Node newnode = new Node();
+    void enqueue(T x) {
+        Node<T> newnode = new Node<>();
         newnode.value = x;
         if (size == 0) {
             head = tail = newnode;
@@ -32,8 +32,8 @@ public class DoubleCircular {
         size++;
     }
 
-    int dequeue() {
-        int x = head.value;
+    T dequeue() {
+        T x = head.value;
         if (size == 0) {
             System.out.println("Empty!!");
         } else if (head == head.next) {
@@ -51,7 +51,7 @@ public class DoubleCircular {
         if (head == null) {
             System.out.println("Nothing to see here!");
         } else {
-            Node iterate = new Node();
+            Node<T> iterate = new Node<>();
             iterate = head;
             while (iterate != tail) {
                 System.out.print(iterate.value + " ");

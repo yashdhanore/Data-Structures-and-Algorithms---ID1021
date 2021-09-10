@@ -1,9 +1,9 @@
 public class test {
     public static void main(String args[]) {
-        DoubleCircular q = new DoubleCircular();
+        DoubleCircular<String> q = new DoubleCircular<>();
         // q.enqueue(1);
-        q.enqueue(2);
-        // q.enqueue(3);
+        q.enqueue("ab");
+        q.enqueue("cd");
         // q.enqueue(4);
         q.viewContent();
         System.out.println();
