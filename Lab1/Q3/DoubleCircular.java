@@ -36,22 +36,29 @@ public class DoubleCircular {
         int x = head.value;
         if (size == 0) {
             System.out.println("Empty!!");
+        } else if (head == head.next) {
+            head = tail = null;
         } else {
-            head.previous = tail;
-            tail.next = head.next;
             head = head.next;
+            head.previous = tail;
+            tail.next = head;
         }
         size--;
         return x;
     }
 
     void viewContent() {
-        Node iterate = new Node();
-        iterate = head;
-        while (iterate != tail) {
-            System.out.print(iterate.value + " ");
-            iterate = iterate.next;
+        if (head == null) {
+            System.out.println("Nothing to see here!");
+        } else {
+            Node iterate = new Node();
+            iterate = head;
+            while (iterate != tail) {
+                System.out.print(iterate.value + " ");
+                iterate = iterate.next;
+            }
+            System.out.print(iterate.value);
         }
-        System.out.print(iterate.value);
+
     }
 }
