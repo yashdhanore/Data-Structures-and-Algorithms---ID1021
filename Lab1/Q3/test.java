@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class test {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-        DoubleCircular<String> q = new DoubleCircular<>();
+        DoubleCircular<Integer> q = new DoubleCircular<>();
         int opt = 1;
         do {
             System.out.println("1. Enqueue");
@@ -25,7 +25,7 @@ public class test {
                     q.viewContent();
                     break;
                 case 3:
-                    System.out.println(q.size);
+                    // System.out.println(q.size);
                     break;
             }
         } while (opt != 0);

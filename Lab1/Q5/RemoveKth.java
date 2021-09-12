@@ -1,4 +1,4 @@
-public class LinkedListQ4<T> {
+public class RemoveKth<T> {
 
     private Node<T> head;
     private Node<T> tail;
@@ -10,29 +10,12 @@ public class LinkedListQ4<T> {
         Node<T> next;
     }
 
-    LinkedListQ4() {
+    RemoveKth() {
         head = tail = null;
         size = 0;
     }
 
-    void insert_AtStart(T x) {
-        Node<T> newnode = new Node<>();
-        newnode.value = x;
-        if (size == 0) {
-            head = tail = newnode;
-            newnode.next = head;
-            newnode.previous = tail;
-        } else {
-            newnode.next = head;
-            head.previous = newnode;
-            newnode.previous = tail;
-            tail.next = newnode;
-            head = newnode;
-        }
-        size++;
-    }
-
-    void insert_AtEnd(T x) {
+    void enqueue(T x) {
         Node<T> newnode = new Node<>();
         newnode.value = x;
         if (size == 0) {
@@ -49,7 +32,7 @@ public class LinkedListQ4<T> {
         size++;
     }
 
-    T delete_FromStart() {
+    T dequeue() {
         T x = head.value;
         if (size == 0) {
             System.out.println("Empty!!");
@@ -64,16 +47,27 @@ public class LinkedListQ4<T> {
         return x;
     }
 
-    T delete_FromEnd() {
-        T x = head.value;
+    T removeAt(int index) {
+        T removed = null;
+        int count = 1;
+        Node<T> temp = new Node<>();
         if (size == 0) {
             System.out.println("Empty!!");
+        } else if (head == head.next) {
+            removed = head.value;
+            head = tail = null;
+        } else {
+            temp = tail;
+            while (count != index) {
+                temp = temp.previous;
+            }
+            removed = temp.value;
+
         }
-        size--;
-        return x;
+        return null;
     }
 
-    void viewContents() {
+    void viewContent() {
         if (head == null) {
             System.out.println("Nothing to see here!");
         } else {
@@ -85,6 +79,6 @@ public class LinkedListQ4<T> {
             }
             System.out.print(iterate.value);
         }
-    }
 
+    }
 }
