@@ -1,90 +1,81 @@
+// Implement a generic iterable FIFO-queue based on a double linked circular list.
+// You should print the content of the list after each insertion/deletion of an element.
+
+// Used:
+// - Node and FIFO approach
+
+// Author: Yash Dhanore
+// Created: 9th Sept,2021
+// Updates: 10th Sept,2021 (Added Dequeue and implemented tests)
+//        : 12th Sept,2021 (Changed Logic to sentinel approach)
+
 public class LinkedListQ4<T> {
 
-    private Node<T> head;
-    private Node<T> tail;
-    int size;
+    private Node<T> sentinel;
+    private int size;
 
     private class Node<T> {
         T value;
         Node<T> previous;
         Node<T> next;
+
+        Node(T i) {
+            this(i, null, null);
+        }
+
+        Node(T v, Node<T> p, Node<T> n) {
+            value = v;
+            previous = p;
+            next = n;
+            size = 0;
+        }
     }
 
     LinkedListQ4() {
-        head = tail = null;
+        sentinel = new Node(1);
+        sentinel.value = null;
+        sentinel.next = sentinel;
+        sentinel.previous = sentinel;
         size = 0;
     }
 
-    void insert_AtStart(T x) {
-        Node<T> newnode = new Node<>();
-        newnode.value = x;
-        if (size == 0) {
-            head = tail = newnode;
-            newnode.next = head;
-            newnode.previous = tail;
-        } else {
-            newnode.next = head;
-            head.previous = newnode;
-            newnode.previous = tail;
-            tail.next = newnode;
-            head = newnode;
-        }
+    void addFrom_End(T x) { // works
+        Node<T> newnode = new Node<>(x, sentinel.previous, sentinel);
+        sentinel.previous.next = newnode;
+        sentinel.previous = newnode;
         size++;
     }
 
-    void insert_AtEnd(T x) {
-        Node<T> newnode = new Node<>();
-        newnode.value = x;
-        if (size == 0) {
-            head = tail = newnode;
-            tail.next = tail;
-            tail.previous = tail;
-        } else {
-            tail.next = newnode;
-            newnode.previous = tail;
-            newnode.next = head;
-            head.previous = newnode;
-            tail = newnode;
-        }
+    void addFrom_Start(T x) { // works
+        Node<T> newnode = new Node<>(x, sentinel, sentinel.next);
+        sentinel.next.previous = newnode;
+        sentinel.next = newnode;
         size++;
     }
 
-    T delete_FromStart() {
-        T x = head.value;
-        if (size == 0) {
-            System.out.println("Empty!!");
-        } else if (head == head.next) {
-            head = tail = null;
-        } else {
-            head = head.next;
-            head.previous = tail;
-            tail.next = head;
-        }
+    T deleteFrom_Start() { // works
+        T x = sentinel.next.value;
+        sentinel.previous.next = sentinel.next;
+        sentinel.next.previous = sentinel.previous;
+        sentinel = sentinel.next;
         size--;
         return x;
     }
 
-    T delete_FromEnd() {
-        T x = head.value;
-        if (size == 0) {
-            System.out.println("Empty!!");
-        }
+    T deleteFrom_End() { // fix
+        T x = sentinel.previous.value;
+        sentinel.previous.previous = sentinel;
+        sentinel.previous.next = sentinel;
+        // sentinel.previous.previous = sentinel.previous;
         size--;
         return x;
     }
 
-    void viewContents() {
-        if (head == null) {
-            System.out.println("Nothing to see here!");
-        } else {
-            Node<T> iterate = new Node<>();
-            iterate = head;
-            while (iterate != tail) {
-                System.out.print(iterate.value + " ");
-                iterate = iterate.next;
-            }
-            System.out.print(iterate.value);
+    void viewContent() {
+        String contains = "";
+        for (Node<T> n = sentinel.next; n != sentinel.previous.next; n = n.next) {
+            contains = contains + n.value + " ";
         }
+        System.out.println(contains);
     }
-
 }

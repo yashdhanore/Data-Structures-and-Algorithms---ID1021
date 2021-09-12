@@ -6,6 +6,7 @@ public class test {
         DoubleCircular<Integer> q = new DoubleCircular<>();
         int opt = 1;
         do {
+            System.out.println();
             System.out.println("1. Enqueue");
             System.out.println("2. Dequeue");
             System.out.println("3. Size");
@@ -21,7 +22,8 @@ public class test {
                     System.out.println();
                     break;
                 case 2:
-                    q.dequeue();
+                    System.out.print("Deleted: " + q.dequeue());
+                    System.out.println();
                     q.viewContent();
                     break;
                 case 3:
