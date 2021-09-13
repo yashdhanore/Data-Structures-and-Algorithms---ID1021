@@ -1,0 +1,36 @@
+void addFrom_End(T x) {
+        Node<T> newnode = new Node<>(x); // check
+        // System.out.println(sentinel.previous);
+        // System.out.println(sentinel);
+        Node<T> temp = sentinel.previous.next;
+        sentinel.previous.next = newnode;
+        newnode.previous = sentinel.next.previous;
+        newnode.next = temp;
+        temp.previous = newnode;
+        // newnode.previous = position; // make newnode's previous point to the latest
+        // position
+        // newnode.next = position.next;
+        // position.next.previous = newnode; // if position is not in the end and the
+        // element after position now has a new node before it.
+        // position.next = newnode; // updating the position pointer now
+        // position = newnode;
+        size++;
+    }
+
+    void addFrom_Start(T x) { // fix
+        Node<T> newnode = new Node<>(x);
+        // Node<T> prev = sentinel.next.previous;
+        // newnode.next = sentinel.next;
+        // newnode.previous = sentinel.next.previous;
+        // sentinel.next.previous.next = newnode;
+        // sentinel.next.previous = newnode;
+        // position = newnode.previous;
+
+        Node<T> temp = sentinel.next;
+        sentinel.next = newnode;
+        newnode.previous = sentinel;
+        newnode.next = temp;
+        temp.previous = newnode;
+        size++;
+
+    }

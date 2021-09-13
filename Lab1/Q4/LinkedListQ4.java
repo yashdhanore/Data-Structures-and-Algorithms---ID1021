@@ -11,71 +11,100 @@
 
 public class LinkedListQ4<T> {
 
-    private Node<T> sentinel;
-    private int size;
+    private Node sentinel = new Node(null);
+    int size = 0;
 
-    private class Node<T> {
+    private class Node {
         T value;
-        Node<T> previous;
-        Node<T> next;
+        Node previous;
+        Node next;
 
-        Node(T i) {
-            this(i, null, null);
-        }
-
-        Node(T v, Node<T> p, Node<T> n) {
+        Node(T v) {
             value = v;
-            previous = p;
-            next = n;
-            size = 0;
+            previous = null;
+            next = null;
         }
     }
 
-    LinkedListQ4() {
-        sentinel = new Node(1);
-        sentinel.value = null;
-        sentinel.next = sentinel;
-        sentinel.previous = sentinel;
-        size = 0;
-    }
-
-    void addFrom_End(T x) { // works
-        Node<T> newnode = new Node<>(x, sentinel.previous, sentinel);
-        sentinel.previous.next = newnode;
-        sentinel.previous = newnode;
+    void addFrom_End(T x) {
+        Node newnode = new Node(x); // check
+        if (isEmpty()) {
+            sentinel.next = newnode;
+            newnode.next = newnode;
+            newnode.previous = newnode;
+        } else {
+            sentinel.next.previous.next = newnode;
+            newnode.previous = sentinel.next.previous;
+            newnode.next = sentinel.next;
+            sentinel.next.previous = newnode;
+        }
         size++;
     }
 
-    void addFrom_Start(T x) { // works
-        Node<T> newnode = new Node<>(x, sentinel, sentinel.next);
-        sentinel.next.previous = newnode;
-        sentinel.next = newnode;
+    void addFrom_Start(T x) { // fix
+        Node newnode = new Node(x);
+        if (isEmpty()) {
+            sentinel.next = newnode;
+            newnode.next = newnode;
+            newnode.previous = newnode;
+        } else {
+            newnode.next = sentinel.next;
+            newnode.previous = sentinel.next.previous;
+            sentinel.next.previous.next = newnode;
+            sentinel.next.previous = newnode;
+            sentinel.next = newnode;
+        }
         size++;
     }
 
-    T deleteFrom_Start() { // works
-        T x = sentinel.next.value;
-        sentinel.previous.next = sentinel.next;
-        sentinel.next.previous = sentinel.previous;
-        sentinel = sentinel.next;
-        size--;
-        return x;
+    T deleteFrom_Start() {
+        if (isEmpty()) {
+            return null;
+        } else if (sentinel.next == sentinel.next.next) {
+            T x = sentinel.next.value;
+            sentinel.next = null;
+            return x;
+        } else {
+            T x = sentinel.next.value;
+            sentinel.next.previous.next = sentinel.next.next;
+            sentinel.next.next.previous = sentinel.next.previous;
+            sentinel.next = sentinel.next.next;
+            size--;
+            return x;
+        }
     }
 
-    T deleteFrom_End() { // fix
-        T x = sentinel.previous.value;
-        sentinel.previous.previous = sentinel;
-        sentinel.previous.next = sentinel;
-        // sentinel.previous.previous = sentinel.previous;
-        size--;
-        return x;
+    T deleteFrom_End() {
+        if (isEmpty()) {
+            return null;
+        } else if (sentinel.next == sentinel.next.next) {
+            T x = sentinel.next.value;
+            sentinel.next = null;
+            return x;
+        } else {
+            T x = sentinel.next.previous.value;
+            sentinel.next.previous.previous.next = sentinel.next.previous.next;
+            sentinel.next.previous.next.previous = sentinel.next.previous.previous;
+            size--;
+            return x;
+        }
+    }
+
+    boolean isEmpty() {
+        return sentinel.next == null;
     }
 
     void viewContent() {
-        String contains = "";
-        for (Node<T> n = sentinel.next; n != sentinel.previous.next; n = n.next) {
-            contains = contains + n.value + " ";
+        if (!isEmpty()) {
+            System.out.print("[");
+            Node temp = sentinel.next;
+            do {
+                System.out.print(temp.value + " ");
+                temp = temp.next;
+            } while (temp != sentinel.next);
+            System.out.print("]");
+        } else {
+            System.out.println("[]");
         }
-        System.out.println(contains);
     }
 }

@@ -3,11 +3,11 @@ import java.util.Scanner;
 public class test {
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
-        LinkedListQ4<Integer> q = new LinkedListQ4<>();
+        Q6 q = new Q6();
         int opt = 1;
         do {
             System.out.println();
-            System.out.println("1. Enter at end");
+            // System.out.println("1. Enter at end");
             System.out.println("2. Enter at start");
             System.out.println("3. Delete from end");
             System.out.println("4. Delete from start");
@@ -18,24 +18,24 @@ public class test {
             switch (opt) {
                 case 1:
                     System.out.println("Enter the data: ");
-                    q.addFrom_End(sc.nextInt());
+                    // q.addFrom_End(sc.nextInt());
                     System.out.println("Contents: ");
                     q.viewContent();
                     System.out.println();
                     break;
                 case 2:
                     System.out.println("Enter the data: ");
-                    q.addFrom_Start(sc.nextInt());
+                    q.add(sc.nextInt());
                     System.out.println("Contents: ");
                     q.viewContent();
                     System.out.println();
                     break;
                 case 3:
-                    System.out.println("Deleted: " + q.deleteFrom_End());
+                    // System.out.println("Deleted: " + q.deleteFrom_End());
                     q.viewContent();
                     break;
                 case 4:
-                    System.out.println("Deleted: " + q.deleteFrom_Start());
+                    // System.out.println("Deleted: " + q.deleteFrom_Start());
                     q.viewContent();
                     break;
                 case 5:
