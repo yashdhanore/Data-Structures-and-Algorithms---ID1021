@@ -7,18 +7,23 @@
 // Author: Yash Dhanore
 // Created - 6th Sept, 2021
 // Upadtes - 8th Sept, 2021 (Changed input text)
+//         - 14th Sept, 2021 (Changed Recursive function)
 
 import java.util.Scanner;
 
 public class PrintRev {
-    static void PrintRecursive(String str) { // printing recursive using built-in string functions
-        if (str.length() <= 1) {
-            System.out.println(str);
+
+    static void RecursivePrintHelper(String str, int index) {
+        if (index < 0) {
+            return;
         } else {
-            System.out.print(str.charAt(str.length() - 1)); // displays the last character
-            PrintRecursive(str.substring(0, str.length() - 1)); // reduces the length of string and calling the function
-                                                                // again
+            System.out.print(str.charAt(index));
+            RecursivePrintHelper(str, --index);
         }
+    }
+
+    static void PrintRecursive(String str) { // printing recursive using built-in string functions
+        RecursivePrintHelper(str, str.length() - 1);
     }
 
     static void PrintIterative(String str) {

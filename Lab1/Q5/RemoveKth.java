@@ -1,84 +1,157 @@
+// Implement a generic iterable FIFO-queue based on a double linked circular list.
+// You should print the content of the list after each insertion/deletion of an element.
+
+// Used:
+// - Node and FIFO approach
+
+// Author: Yash Dhanore
+// Created: 9th Sept,2021
+// Updates: 10th Sept,2021 (Added Dequeue and implemented tests)
+//        : 12th Sept,2021 (Changed Logic to sentinel approach)
+
 public class RemoveKth<T> {
 
-    private Node<T> head;
-    private Node<T> tail;
-    int size;
+    private Node sentinel = new Node(null);
+    private Node current;
+    int size = 0;
 
-    private class Node<T> {
+    private class Node {
         T value;
-        Node<T> previous;
-        Node<T> next;
-    }
+        Node previous;
+        Node next;
 
-    RemoveKth() {
-        head = tail = null;
-        size = 0;
-    }
-
-    void enqueue(T x) {
-        Node<T> newnode = new Node<>();
-        newnode.value = x;
-        if (size == 0) {
-            head = tail = newnode;
-            tail.next = tail;
-            tail.previous = tail;
-        } else {
-            tail.next = newnode;
-            newnode.previous = tail;
-            newnode.next = head;
-            head.previous = newnode;
-            tail = newnode;
+        Node(T v) {-
+            value = v;
+            previous = null;
+            next = null;
         }
+    }
+
+    void addFrom_End(T x) {
+        Node newnode = new Node(x); // check
+        if (isEmpty()) {
+            sentinel.next = newnode;
+            newnode.next = newnode;
+            newnode.previous = newnode;
+        } else {
+            sentinel.next.previous.next = newnode;
+            newnode.previous = sentinel.next.previous;
+            newnode.next = sentinel.next;
+            sentinel.next.previous = newnode;
+        }
+        current = newnode;
+        System.out.println("Current:" + current.value);
         size++;
     }
 
-    T dequeue() {
-        T x = head.value;
-        if (size == 0) {
-            System.out.println("Empty!!");
-        } else if (head == head.next) {
-            head = tail = null;
+    void RemoveAt(int index) {
+        System.out.println("Temp: " + current.value);
+        Node temp = current;
+        if (current == sentinel.next.previous) {
+            if (index == 1) {
+                deleteFrom_End();
+            } else {
+                while (index > 1) {
+                    temp = temp.previous;
+                    index--;
+                }
+            }
         } else {
-            head = head.next;
-            head.previous = tail;
-            tail.next = head;
+            if (index == 1) {
+                deleteFrom_Start();
+            } else {
+                while (index > 1) {
+                    temp = temp.next;
+                    index--;
+                }
+            }
         }
-        size--;
-        return x;
+
+        // if (current == sentinel.next.previous) {
+        // while (index > 1) {
+        // temp = temp.previous;
+        // index--;
+        // }
+        // } else if (current == sentinel.next) {
+        // while (index > 1) {
+        // temp = temp.next;
+        // index--;
+        // }
+        // } else if (index == 1 && current == sentinel.next.previous) {
+        // deleteFrom_End();
+        // } else if (index == 1 && current == sentinel.next) {
+        // deleteFrom_Start();
+        // }
+        System.out.println("Deleted: " + temp.value);
+        temp.previous.next = temp.next;
+        temp.next.previous = temp.previous;
     }
 
-    T removeAt(int index) {
-        T removed = null;
-        int count = 1;
-        Node<T> temp = new Node<>();
-        if (size == 0) {
-            System.out.println("Empty!!");
-        } else if (head == head.next) {
-            removed = head.value;
-            head = tail = null;
+    void addFrom_Start(T x) { // fix
+        Node newnode = new Node(x);
+        if (isEmpty()) {
+            sentinel.next = newnode;
+            newnode.next = newnode;
+            newnode.previous = newnode;
         } else {
-            temp = tail;
-            while (count != index) {
-                temp = temp.previous;
-            }
-            removed = temp.value;
-
+            newnode.next = sentinel.next;
+            newnode.previous = sentinel.next.previous;
+            sentinel.next.previous.next = newnode;
+            sentinel.next.previous = newnode;
+            sentinel.next = newnode;
         }
-        return null;
+        current = newnode;
+        size++;
+    }
+
+    T deleteFrom_Start() {
+        if (isEmpty()) {
+            return null;
+        } else if (sentinel.next == sentinel.next.next) {
+            T x = sentinel.next.value;
+            sentinel.next = null;
+            return x;
+        } else {
+            T x = sentinel.next.value;
+            sentinel.next.previous.next = sentinel.next.next;
+            sentinel.next.next.previous = sentinel.next.previous;
+            sentinel.next = sentinel.next.next;
+            size--;
+            return x;
+        }
+    }
+
+    T deleteFrom_End() {
+        if (isEmpty()) {
+            return null;
+        } else if (sentinel.next == sentinel.next.next) {
+            T x = sentinel.next.value;
+            sentinel.next = null;
+            return x;
+        } else {
+            T x = sentinel.next.previous.value;
+            sentinel.next.previous.previous.next = sentinel.next.previous.next;
+            sentinel.next.previous.next.previous = sentinel.next.previous.previous;
+            size--;
+            return x;
+        }
+    }
+
+    boolean isEmpty() {
+        return sentinel.next == null;
     }
 
     void viewContent() {
-        if (head == null) {
-            System.out.println("Nothing to see here!");
+        if (!isEmpty()) {
+            System.out.print("[");
+            Node temp = sentinel.next;
+            do {
+                System.out.print(temp.value + " ");
+                temp = temp.next;
+            } while (temp != sentinel.next);
+            System.out.print("]");
         } else {
-            Node<T> iterate = new Node<>();
-            iterate = head;
-            while (iterate != tail) {
-                System.out.print(iterate.value + " ");
-                iterate = iterate.next;
-            }
-            System.out.print(iterate.value);
+            System.out.println("[]");
         }
-
     }
 }
