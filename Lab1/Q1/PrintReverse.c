@@ -11,7 +11,6 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 void PrintRevRecursive(){  /*calling PrintRevRecursive until end of file is reached, this stacks up all the requests
                             of printing. When EOF is reached the function doesnt call itself and ends the process.
@@ -37,22 +36,6 @@ void PrintRevIterative(){
         putchar(reverse[j]);
     }
 }
-// void PrintRevIterative_cmd(int size,char *current[]){
-//     char rev[1001];
-//     int len = 0;
-//     for(int i = 1; i < size; i++ ){
-//         char *word = current[i];
-//         for(int j = 0; j < strlen(word) ; j++){
-//             rev[len] = *(word+j);
-//             ++len;
-//         }
-//         rev[len] = ' ';
-//         ++len;
-//     }
-//     for(int j = len-2; j >= 0; j-- ){
-//         printf("%c",rev[j]);
-//     }
-// }
 
 int main(){
         //PrintRevRecursive();
