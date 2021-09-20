@@ -7,6 +7,19 @@ public class test {
         MergeSort mSort = new MergeSort();
         InsertionSort iSort = new InsertionSort();
         QuickSort qSort = new QuickSort();
+        int ch = 1;
+        do {
+            // select array size
+            System.out.println("1. MergeSort");
+            System.out.println("2. InsertionSort");
+            System.out.println("3. QuickSort");
+            System.out.println("0. Exit");
+            switch (ch) {
+                case 1:
+                case 2:
+                case 3:
+            }
+        } while (ch != 0);
         mSort.mergeSort(size10);
         // iSort.insertionSort(size10);
         // qSort.quickSort(size10);
