@@ -1,5 +1,5 @@
 public class InsertionSort {
-    public static void insertionSort(int a[]) {
+    public void insertionSort(int a[]) {
         int len = a.length;
         for (int i = 0; i < len; i++) {
             for (int j = i; j > 0; j--) {

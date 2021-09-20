@@ -1,9 +1,14 @@
 public class QuickSort {
-    static void quickSort(int a[], int startIndex, int endIndex) {
+
+    public void quickSort(int a[]) {
+        Sort(a, 0, a.length - 1);
+    }
+
+    private static void Sort(int a[], int startIndex, int endIndex) {
         if (startIndex < endIndex) {
             int pivotIndex = partition_sort(a, startIndex, endIndex);
-            quickSort(a, startIndex, pivotIndex - 1);
-            quickSort(a, pivotIndex + 1, endIndex);
+            Sort(a, startIndex, pivotIndex - 1);
+            Sort(a, pivotIndex + 1, endIndex);
         }
     }
 
