@@ -1,4 +1,9 @@
 public class test {
+
+    int randomGenerator() {
+        return 0;
+    }
+
     public static void main(String args[]) {
         int[] size10 = { 10, 9, 8, 7, 7, 5, 1, 8, 2, 0 };
         int[] size100 = {};
@@ -9,7 +14,13 @@ public class test {
         QuickSort qSort = new QuickSort();
         int ch = 1;
         do {
-            // select array size
+            System.out.println("Select size of Array to test:");
+            System.out.println("1. size 10");
+            System.out.println("2. size 100");
+            System.out.println("3. size 1000");
+            System.out.println("4. size 10000");
+            System.out.println("5. size 100000");
+
             System.out.println("1. MergeSort");
             System.out.println("2. InsertionSort");
             System.out.println("3. QuickSort");
